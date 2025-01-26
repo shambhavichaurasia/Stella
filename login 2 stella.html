@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Stella - login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            height: 70vh;
+            background-color: #1E1E2E;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .slideshow {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slideshow img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            object-fit: cover;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+
+        .stella-title {
+            font-family: "Afacad Flux", serif;
+            font-size: 20px;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            margin: -20px;
+            margin-left: 5px;
+        }
+
+        .slideshow .back-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .slideshow .slide-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slideshow .slide-indicators span {
+            width: 10px;
+            height: 10px;
+            background-color: #aaa;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slideshow .slide-indicators .active {
+            background-color: #fff;
+        }
+
+        .login-container {
+            flex: 1;
+            padding: 40px;
+            background-color: #252537;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3E3E4E;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .login-container input:focus {
+            outline: 2px solid #6C63FF;
+        }
+
+        .login-container label {
+            margin-bottom: 5px;
+        }
+
+        .login-container button {
+            background-color: #6C63FF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-container button:hover {
+            background-color: #5A53D4;
+        }
+
+        .login-container .terms {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-container .terms input {
+            margin-right: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            .slideshow {
+                height: 50vh;
+            }
+            .login-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slideshow">
+            <div class="logo">
+                <h1 class="stella-title">STELLA</h1>
+            </div>
+            <button class="back-button">Back to website</button>
+            <img src="2.png" alt="Image 1" class="slide" style="opacity: 1;">
+            <img src="3.png" alt="Image 2" class="slide" style="opacity: 0;">
+            <img src="4.png" alt="Image 3" class="slide" style="opacity: 0;">
+            <div class="slide-indicators">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="login-container">
+            <h2>Create an Account</h2>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Password" required>
+                <div class="terms">
+                    <input type="checkbox" id="terms">
+                    <label for="terms">I agree to the Terms & Conditions</label>
+                </div>
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.slide-indicators span');
+        let currentIndex = 0;
+
+        function showNextSlide() {
+            slides[currentIndex].style.opacity = '0';
+            indicators[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].style.opacity = '1';
+            indicators[currentIndex].classList.add('active');
+        }
+
+        setInterval(showNextSlide, 2000);
+
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const terms = document.getElementById("terms").checked;
+
+            if (!terms) {
+                alert("You must agree to the Terms & Conditions to proceed.");
+                return;
+            }
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+            window.location.href = "profpage.html";
+        });
+
+        document.querySelector(".back-button").addEventListener("click", () => {
+            window.location.href = "index.html"; 
+        });
+    </script>
+</body>
+</html>

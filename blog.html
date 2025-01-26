@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Stella - blog</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(75deg, rgb(36, 35, 37), rgb(36, 35, 37), rgb(36, 35, 37));
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-top: 50px;
+            color: #f7f6f6;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 10px;
+            color: #cbc3c3;
+            font-weight: 400;
+        }
+        #filter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        #filter-container label {
+        font-size: 18px;
+        color: #b4aeae;
+        font-weight: 500;
+        }
+
+        #category-filter, #filter-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            border: 2px solid #000000;
+            background-color: transparent;
+            color: #92b5e5;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #category-filter {
+            width: 200px;
+        }
+
+        #category-filter:hover, #filter-btn:hover {
+            background-color: #fff;
+            color: #3d5771;
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+        #news-container {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            gap: 50px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .news-item {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cce7d0;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+            margin: 15px 0;
+            transition: 0.2s ease;
+            position: relative;
+        }
+
+        .news-item:hover {
+            box-shadow: 20px 20px 30px rgba(249, 247, 247, 0.6);
+        }
+
+        .news-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+        .news-item-content {
+            padding: 20px;
+        }
+
+        .news-item h3 {
+            font-size: 22px;
+            margin: 0;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .news-item p {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        .news-item a {
+            color: #5d89c7;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .news-item a:hover {
+            color: #fff;
+        }
+
+        /* Load More Button */
+        #load-more-btn {
+            display: block;
+            margin: 30px auto;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #load-more-btn:hover {
+            background-color: #007acc;
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            .news-item h3 {
+                font-size: 20px;
+            }
+            .news-item p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #category-filter, #filter-btn {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+            #load-more-btn {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo2.png" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="apod.html">APOD</a></li>
+                <li><a href="imggallery.html">Gallery</a></li>
+                <li id="account"><a href="login 2 stella.html"><i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+                <a href="#" id="close"><i class="fa fa-times" aria-hidden="true"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+            <i id="bar" class="fa fa-outdent" aria-hidden="true"></i>
+        </div>
+    </section>
+
+    <section id="page-header" class="blog-header">
+        <h2>#readmore</h2>
+        <p>Read all case studies about our products!</p>
+
+
+    </section>
+
+    <h1>STELLA - Spaceflight Blog</h1>
+    <h2>Explore the Latest Spaceflight Insights</h2>
+    <div id="filter-container">
+        <label for="category-filter">Filter by Topic:</label>
+        <select id="category-filter">
+            <option value="">Select Topic</option>
+            <option value="NASA">NASA</option>
+            <option value="SpaceX">SpaceX</option>
+            <option value="Mars">Mars</option>
+            <option value="Astronomy">Astronomy</option>
+        </select>
+        <button id="filter-btn">Filter Blogs</button>
+    </div>
+    
+    <div id="news-container">Loading blogs...</div>
+    <button id="load-more-btn">Load More</button>
+
+    <section id="newletter" class="section-p1 section-m1">
+        <div class="newtext">
+            <h4>Sign Up For newletters</h4>
+            <p>Get E-mail update about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <a href="login 2 stella.html" target="_blank" rel="noopener noreferrer">
+                <button class="normal1">Sign Up</button></a>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/logo2.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> ABES Engineering College Ghaziabad, India</p>
+            
+            <div class="follow">
+                <h4>follow us</h4>
+                <div class="icon">
+                    <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                    <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact us </a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My order</a>
+            <a href="#"> Help </a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="img/pay/app.jpg" alt="">
+                <img src="img/pay/play.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2024,SDT </p>
+        </div>
+
+    </footer>
+
+    <script src="script.js">
+    </script>
+
+    <script>
+        let currentOffset = 0;
+        const blogsPerPage = 5;
+        let filterTopic = ''; 
+
+        async function fetchSpaceflightBlogs(offset = 0, filter = '') {
+            const url = `https://api.spaceflightnewsapi.net/v4/blogs?offset=${offset}&search=${filter}`;
+            
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer YOUR_API_KEY'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const blogContainer = document.getElementById("news-container");
+                if (offset === 0) {
+                    blogContainer.innerHTML = "";
+                }
+                data.results.forEach(blog => {
+                    const blogItem = document.createElement("div");
+                    blogItem.classList.add("news-item");
+                    blogItem.innerHTML = `
+                        <img src="${blog.image_url || 'https://via.placeholder.com/300'}" alt="Blog Image">
+                        <div class="news-item-content">
+                            <h3>${blog.title}</h3>
+                            <p>${blog.summary}</p>
+                            <p>Published At: ${new Date(blog.published_at).toLocaleDateString()}</p>
+                            <a href="${blog.url}" target="_blank">Read More</a>
+                        </div>
+                    `;
+                    blogContainer.appendChild(blogItem);
+                });
+                currentOffset += blogsPerPage;
+            } else {
+                document.getElementById("news-container").innerText = "Failed to load blogs.";
+            }
+        }
+        fetchSpaceflightBlogs(currentOffset, filterTopic);
+        document.getElementById("load-more-btn").addEventListener("click", () => {
+            fetchSpaceflightBlogs(currentOffset, filterTopic);
+        });
+
+        
+        document.getElementById("filter-btn").addEventListener("click", () => {
+            
+            const selectedTopic = document.getElementById("category-filter").value;
+            filterTopic = selectedTopic;
+            currentOffset = 0;
+
+            fetchSpaceflightBlogs(currentOffset, filterTopic);
+        });
+    </script>
+</body>
+</html>

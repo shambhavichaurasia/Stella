@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stella - Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1f1f1f, #2d2d3f);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            background-image: url('https://www.nasa.gov/sites/default/files/thumbnails/nasa-logo-web-rgb.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: auto;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 90%;
+            margin-top: 40px;
+            transform: translateY(-100px);
+            animation: slideIn 1s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        #question-text {
+            font-size: 26px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        #options {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        #options li {
+            background-color: #444;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #options li:hover {
+            background-color: #5d89c7;
+            transform: translateY(-5px);
+        }
+
+        .selected {
+            background-color: #5d89c7 !important;
+            color: white;
+            pointer-events: none;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #5d89c7;
+            border: none;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:disabled {
+            background-color: #888;
+        }
+
+        button:hover {
+            background-color: #007acc;
+            transform: scale(1.05);
+        }
+
+        #progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background-color: #5d89c7;
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        #results {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #results h2 {
+            color: #1f1f1f;
+            font-size: 30px;
+        }
+
+        #restart-btn {
+            margin-top: 10px;
+            background-color: #444;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            border: none;
+        }
+
+        #restart-btn:hover {
+            background-color: #5d89c7;
+        }
+
+        #analyze-btn {
+            margin-top: 10px;
+            gap: 30px;
+            background-color: #444;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            border: none;
+        }
+
+        #analyze-btn:hover {
+            background-color: #5d89c7;
+        }
+
+        /* Analyze results */
+        #wrong-answers {
+            color: #1f1f1f;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .wrong-answer {
+            background-color: #9f9a9a;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Space Trivia Quiz</h1>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="question-text">Loading question...</div>
+        <ul id="options">
+            <!-- Options will be injected here -->
+        </ul>
+        <button id="next-btn" disabled>Next Question</button>
+    </div>
+    
+    <div id="results">
+        <h2>Your Score: <span id="score"></span></h2>
+        <button id="restart-btn">Go Back to Profile</button>
+        <button id="analyze-btn">Analyze</button>
+    </div>
+
+    <div id="wrong-answers"></div>
+
+    <script>
+        const questions = [
+            { question: "What is the name of the first artificial satellite launched into space?", options: ["Sputnik 1", "Apollo 11", "Explorer 1", "Vanguard 1"], correctAnswer: "Sputnik 1" },
+            { question: "Which planet is known as the Red Planet?", options: ["Mars", "Venus", "Saturn", "Earth"], correctAnswer: "Mars" },
+            { question: "What is the largest planet in our solar system?", options: ["Earth", "Saturn", "Jupiter", "Neptune"], correctAnswer: "Jupiter" },
+            { question: "Which space agency sent humans to the Moon in 1969?", options: ["NASA", "ESA", "Roscosmos", "ISRO"], correctAnswer: "NASA" },
+            { question: "How many moons does Earth have?", options: ["1", "2", "3", "4"], correctAnswer: "1" },
+            { question: "What is the closest star to Earth?", options: ["Proxima Centauri", "Alpha Centauri", "The Sun", "Sirius"], correctAnswer: "The Sun" },
+            { question: "Which planet has the most moons?", options: ["Saturn", "Jupiter", "Uranus", "Mars"], correctAnswer: "Saturn" },
+            { question: "What is the name of the first human in space?", options: ["Neil Armstrong", "Yuri Gagarin", "Buzz Aldrin", "Alan Shepard"], correctAnswer: "Yuri Gagarin" },
+            { question: "What galaxy is Earth located in?", options: ["Andromeda", "Milky Way", "Triangulum", "Whirlpool"], correctAnswer: "Milky Way" },
+            { question: "What is the largest moon of Saturn?", options: ["Titan", "Enceladus", "Rhea", "Mimas"], correctAnswer: "Titan" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedOption = null; 
+        let incorrectAnswers = [];
+
+        const questionText = document.getElementById("question-text");
+        const optionsList = document.getElementById("options");
+        const nextButton = document.getElementById("next-btn");
+        const progressBar = document.getElementById("progress-bar");
+        const resultsDiv = document.getElementById("results");
+        const restartButton = document.getElementById("restart-btn");
+        const scoreSpan = document.getElementById("score");
+        const analyzeButton = document.getElementById("analyze-btn");
+        const wrongAnswersDiv = document.getElementById("wrong-answers");
+
+
+        function displayQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            optionsList.innerHTML = '';
+
+            currentQuestion.options.forEach(option => {
+                const optionItem = document.createElement("li");
+                optionItem.innerText = option;
+                optionItem.onclick = () => selectOption(option);
+                optionsList.appendChild(optionItem);
+            });
+            nextButton.disabled = true;
+            updateProgressBar();
+        }
+
+        function handleOptionSelect(optionItem, option) {
+            if (selectedOption) {
+                selectedOption.classList.remove("selected");
+            }
+            optionItem.classList.add("selected");
+            selectedOption = optionItem;
+
+            if (option === questions[currentQuestionIndex].correctAnswer) {
+                score++;
+            }
+
+            nextButton.disabled = false;
+        }
+
+        function selectOption(option) {
+            selectedOption = option;
+            const currentQuestion = questions[currentQuestionIndex];
+            const options = optionsList.querySelectorAll('li');
+            options.forEach(optionItem => optionItem.classList.remove('selected'));
+            const selectedItem = [...options].find(item => item.innerText === option);
+            selectedItem.classList.add('selected');
+
+            if (selectedOption === currentQuestion.correctAnswer) {
+                score++;
+            } else {
+                incorrectAnswers.push({ question: currentQuestion.question, selectedOption: selectedOption, correctOption: currentQuestion.correctAnswer });
+            }
+
+            nextButton.disabled = false;
+        }
+
+        function updateProgressBar() {
+            const progress = (currentQuestionIndex + 1) / questions.length * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+                updateProgressBar();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            resultsDiv.style.display = "block";
+            scoreSpan.textContent = `${score} / 10`;
+            document.getElementById("quiz-container").style.display = "none";
+            restartButton.style.display = "inline-block";
+
+            // Store the UFOs (score) in localStorage
+            localStorage.setItem("ufos", score);
+        }
+
+        function restartQuiz() {
+            score = 0;
+            currentQuestionIndex = 0;
+            resultsDiv.style.display = "none";
+            document.getElementById("quiz-container").style.display = "block";
+            restartButton.style.display = "none";
+            displayQuestion();
+        }
+
+        function analyzeWrongAnswers() {
+            if (incorrectAnswers.length === 0) {
+                wrongAnswersDiv.innerHTML = '<p>Congratulations, you answered everything correctly!</p>';
+            } else {
+                wrongAnswersDiv.innerHTML = '';
+                incorrectAnswers.forEach(answer => {
+                    const wrongAnswerText = document.createElement("div");
+                    wrongAnswerText.classList.add("wrong-answer");
+                    wrongAnswerText.innerHTML = `Question: ${answer.question} <br> Your Answer: ${answer.selectedOption} <br> Correct Answer: ${answer.correctOption}<br><br>`;
+                    wrongAnswersDiv.appendChild(wrongAnswerText);
+                });
+            }
+        }
+
+        function handleNextQuestion() {
+            if (currentQuestionIndex === questions.length - 1) {
+                showResults();
+            } else {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        nextButton.addEventListener('click', handleNextQuestion);
+        restartButton.addEventListener('click', () => {
+            window.location.href = "profpage.html"; // Redirect to profile page
+        });
+        analyzeButton.addEventListener("click", analyzeWrongAnswers);
+
+        displayQuestion();
+    </script>
+</body>
+</html>

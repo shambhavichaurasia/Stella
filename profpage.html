@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stella - Profile</title>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Afacad Flux", serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #595858, #161616);
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 90%;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-section {
+            flex: 1;
+            padding: 30px;
+            background: linear-gradient(135deg, #cbc6c5, #b28278);
+            text-align: center;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .bio {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .ufos {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .ufos i {
+            color: #5d89c7;
+        }
+
+        .btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #fff;
+            color: #5d89c7;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background: #FF6F61;
+            color: #fff;
+        }
+
+        .content-section {
+            flex: 1.5;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .heading {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #252424;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 10;
+            background-color: #5d89c7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #675d5d;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quiz-button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .quiz-button {
+            padding: 10px 20px;
+            background: #504c4c;
+            color: #a7aaad;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .quiz-button:hover {
+            background: #5d89c7;
+        }
+
+        .quiz-button.cancel {
+            background: #ccc;
+            color: #555;
+        }
+
+        .quiz-button.cancel:hover {
+            background: #bbb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-section">
+            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Photo" class="profile-photo"
+                id="profileImage">
+            <h2 class="username" id="username">Robert Jhosep</h2>
+            <p class="bio" id="bio">A passionate space enthusiast, exploring the stars and the mysteries of the universe.</p>
+            <div class="ufos">
+                <i class="fas fa-rocket"></i>
+                <span id="ufos">5 UFOs Collected</span>
+            </div>
+            <button class="back-button">Back to website</button>
+            <button class="btn" onclick="document.getElementById('fileInput').click()">Change Profile</button>
+            <input type="file" id="fileInput" style="display: none;" onchange="updateProfilePhoto()">
+        </div>
+        <div class="content-section">
+            <h2 class="heading">Try your hands on quizes, and flex your UFOs!</h2>
+            <p class="description">Test your space knowledge and earn UFOs for every correct answer! The more quizzes you take, the closer you get to becoming a true space explorer. Start now and grow your intergalactic fleet!</p>
+            <div class="quiz-button-container">
+                <button class="quiz-button" id="yesButton">Take the Quiz</button>
+                <button class="quiz-button cancel" id="noButton">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const profileImage = document.getElementById('profileImage');
+        const username = document.getElementById('username');
+        const bio = document.getElementById('bio');
+        const ufos = document.getElementById('ufos');
+        const fileInput = document.getElementById('fileInput');
+
+        const storedUsername = localStorage.getItem('username') || 'Robert Jhosep';
+        const storedBio = localStorage.getItem('bio') || 'Business Consultant, passionate about helping businesses grow.';
+        const storedUfos = localStorage.getItem('ufos') || 5;
+        const storedProfilePhoto = localStorage.getItem('profilePhoto') || 'https://www.w3schools.com/w3images/avatar2.png';
+
+        username.textContent = storedUsername;
+        bio.textContent = storedBio;
+        ufos.textContent = `${storedUfos} UFOs Collected`;
+        profileImage.src = storedProfilePhoto;
+
+        function updateProfilePhoto() {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    profileImage.src = reader.result;
+                    localStorage.setItem('profilePhoto', reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        document.querySelector(".back-button").addEventListener("click", () => {
+            window.location.href = "index.html"; // Replace with your main page URL
+        });
+
+        document.getElementById('yesButton').addEventListener('click', () => {
+            window.location.href = 'quiz.html';
+        });
+
+        document.getElementById('noButton').addEventListener('click', () => {
+            alert('Quiz canceled. Come back soon! ✨');
+        });
+    </script>
+</body>
+
+</html>
