@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Stella - APOD</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Reset */
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        } 
+
+        /* Grid Layout */
+        #apod-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+            border-radius: 20px;
+            padding: 20px;
+            background: #2c2a2a;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover Effect for Image and Text Simultaneously */
+        /* #apod-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.2);
+        } */
+
+        /* Image Styling with Boundary */
+        #apod-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            border: 5px solid #ddd;
+            box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.6);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        #apod-image:hover {
+            box-shadow: 0px 10px 30px rgba(227, 223, 223, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Text Styling */
+        #apod-details {
+            margin-top: 20px;
+        }
+
+        #apod-details h2 {
+            font-size: 2.2rem;
+            color: #fbf9f9;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        #apod-details p {
+            font-size: 1.2rem;
+            color: #b6b1b1;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        #apod-details #apod-title {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #e6dfdf;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo2.png" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="apod.html">APOD</a></li>
+                <li><a href="imggallery.html">Gallery</a></li>
+                <li id="account"><a href="login 2 stella.html"><i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+                <a href="#" id="close"><i class="fa fa-times" aria-hidden="true"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+            <i id="bar" class="fa fa-outdent" aria-hidden="true"></i>
+        </div>
+    </section>
+
+    <section id="page-header" class="about-header">
+        <h1>#pictureofday</h1>
+        <p>see what's new today</p>
+    </section>
+    <div id="apod-container">
+        <div id="apod-details">
+            <h2>Astronomy Picture of the Day</h2>
+            <p id="apod-title"></p>
+            <p id="apod-description"></p>
+        </div>
+        <img id="apod-image" alt="Astronomy Picture of the Day">
+    </div>
+    
+    <section id="newletter" class="section-p1 section-m1">
+        <div class="newtext">
+            <h4>Sign Up For newletters</h4>
+            <p>Get E-mail update about our latest shop and <span>special offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <a href="login 2 stella.html" target="_blank" rel="noopener noreferrer">
+                <button class="normal1">Sign Up</button></a>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/logo2.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> ABES Engineering College Ghaziabad, India</p>
+            <div class="follow">
+                <h4>follow us</h4>
+                <div class="icon">
+                    <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                    <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact us </a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My order</a>
+            <a href="#"> Help </a>
+        </div>
+
+        <div class="col install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="img/pay/app.jpg" alt="">
+                <img src="img/pay/play.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>© 2024,SDT </p>
+        </div>
+
+    </footer>
+
+    <script src="script.js">
+    </script>
+
+    <script>
+        const apiKey = "7tdcrsBTL2BYidBoOSGxyLJgLCHLSB4hqqDoduEk";
+        const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
+        async function fetchApodData() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                document.getElementById("apod-image").src = data.url;
+                document.getElementById("apod-title").textContent = data.title;
+                document.getElementById("apod-description").textContent = data.explanation;
+            } catch (error) {
+                console.error("Error fetching APOD data:", error);
+                document.getElementById("apod-description").textContent =
+                    "Oops! Unable to fetch data from NASA's API. Please try again later.";
+            }
+        }
+        fetchApodData();
+    </script>
+</body>
+</html>
